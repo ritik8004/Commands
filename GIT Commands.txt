@@ -39,3 +39,9 @@ git reset --> Resetting lets you clean up or completely remove changes that have
 git revert --> When you discover a faulty commit, reverting is a safe and easy way to completely remove it from the code base.
 
 git status --> Displays the state of the working directory and the staged snapshot.
+
+git checkout -b <some name> --> To create new branch.
+
+git branch -d <branch_name> --> To delete a branch after merging the required changes to main branch.
+
+git branch -D <branch_name> --> To force delete the branch without merging the changes.
