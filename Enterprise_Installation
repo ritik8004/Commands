@@ -1,0 +1,57 @@
+Enterprise Edition installation
+1. Create SSH key in gitlab using gitbash
+  ->cd desktop/
+  ->ssh-keygen
+  ->cat ~/.ssh/id_rsa.pub(copy the SSH key and paste in gitlab)
+  ->git clone URL
+  ->cd magento-hnm
+  ->cd ..
+  ->ls -all
+
+Data base creation
+mysql -h localhost -u root -p
+show databases;
+create database aloyoga
+show databases;
+use aloyoga
+source /var/www/html/aloyoga/filename/filename.sql
+outside database -> rm -rf filename/
+mysql -h localhost -u root -p
+use aloyoga;
+select * from core_config_data where path like "%url%";
+http://alo-dev-alshaya.com/(also save it in host)
+update core_config_data set value='http://alo-dev-alshaya.com/' where config_id=18;
+update core_config_data set value='http://alo-dev-alshaya.com/' where config_id=21;
+exit
+sudo su
+vi /etc/nginx/nginx.conf (copy this)(server {
+    listen 80;
+    server_name nb-dev-alshaya.com;
+    set $MAGE_ROOT /var/www/html/aloyoga;
+    set $MAGE_DEBUG_SHOW_ARGS 0;
+    include ./magento.conf;
+    error_log /var/log/nginx/gt-error.log;
+}) 
+now ->vi /etc/nginx/nginx.conf AND  insert (server {
+    listen 80;
+    server_name alo-dev-alshaya.com;
+    set $MAGE_ROOT /var/www/html/aloyoga;
+    set $MAGE_DEBUG_SHOW_ARGS 0;
+    include ./magento.conf;
+    error_log /var/log/nginx/gt-error.log;
+}) 
+/bin/systemctl restart nginx.service
+
+composer update
+username viladh.t@alshaya.com
+password Viladi@85@Of#7
+copy env.php file and paste it in aloyoga app/etc/  edit env file db name
+setup upgrade
+(For limit exceed)vi /var/www/html/newbalance/vendor/magento/framework/Serialize/Serializer/Json.php
+vendor/magento/framework/App/State.php(for area code error)(comment it out)
+vi pub/index.php(inside try add the 3 limit lines)
+--if you are getting to many allowed limit 
+sudo chmod -R 777 aloyoga/ 
+try and check url if not then--
+app/etc/config.php AND remove Amqp AND Amqpmessagebus
+then setupupgrade
