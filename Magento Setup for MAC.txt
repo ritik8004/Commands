@@ -1,0 +1,41 @@
+Magento local setup for MAC
+
+For installing a brand in local 
+
+-> git clone the repository into your local
+
+-> cd /usr/local/etc/nginx/sites-enabled -- Create a <name>.local.conf file
+
+-> cd /usr/local/etc/nginx/ -- Run the command "ln -s /usr/local/etc/nginx/sites-available/<name>.local.conf /usr/local/etc/nginx/sites-enabled/
+
+-> sudo nano /etc/hosts -- 127.0.0.1   <name>.local (paste this command)
+
+-> Copy the env.php file into the /app/etc/env.php and make changes in database
+
+-> Go to database using command "mysql -u root"
+
+-> Create database and use database;
+
+-> Create a database dump file of the brand into your local and copy the path of the db
+
+-> In mysql run "source <path of the db dile>"
+
+-> Go into phpmyadmin->table->core_config and change the base url
+
+-> Run composer install and composer update / composer update alshaya/* globale/*
+
+-> Run the below commands 
+	bin/magento setup:upgrade
+	bin/magento setup:di:compile
+	php bin/magento setup:static-content:deploy -f
+	bin/magento ind:reindex
+	bin/magento cache:clean
+	bin/magento cache:flush
+	chmod -R 777 var/ generated/ pub/ app/ vendor/ pub/
+
+-> If you get any SQL 4000 error run this command "ALTER TABLE algoliasearch_queue_archive DROP PRIMARY KEY,change id id int unsigned;"
+
+
+
+Magento Brand Setup Done ENJOY!!!
+Developer -> Ritik Raj
