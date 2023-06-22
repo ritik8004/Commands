@@ -1,0 +1,59 @@
+How to do local Drupal installation in MAC
+
+Download the requirements
+Requirements
+Docker
+Lando
+MacOS or Ubuntu/Linux (*Not tested on Windows)
+
+
+1) For downloading Docker install it from https://docs.docker.com/desktop/install/mac-install/
+
+2) For downloading Lando https://docs.lando.dev/getting-started/installation.html#install-dmg-via-direct-download-recommended and download the dmg file into local machine and extract it
+
+3) Then Go to terminal and go to HOMEBREW and using the command 
+-> brew install node
+-> brew install npm
+ 
+Install node and npm 
+
+
+4) Then Local git repository
+Each developer uses a fork of the main repository for their developments and creates Pull Requests (PRs) against the main repository when he is ready.
+
+To prepare your local env:
+
+Fork the main repository into your own repository, i.e. click on Fork button on https://github.com/acquia-pso/alshaya page.
+Clone the fork locally: git clone git@github.com:<your_username>/alshaya.git
+Add a git remote for the main repository (aka upstream):
+-> cd alshaya
+-> git remote add upstream git@github.com:acquia-pso/alshaya.git
+-> git remote set-url --push upstream DISABLED
+
+5) Then run the below commands
+-> npm i -g yarn - Install Yarn (make sure npm is available before this is executed).
+-> lando start - this will configure and set up your containers and services.
+-> lando composer install - This will install all the composer packages.
+-> lando composer build-middlewares - This will install all the composer packages for the middleware applications.
+-> lando create-databases - This will create all the required databases.
+-> lando blt blt:init:git-hooks - this will initialize git hooks.
+-> lando blt blt:init:settings - this will initialize settings.
+-> lando blt frontend:setup - see notes on BLT & NPM below
+-> lando blt frontend:build - see notes on BLT & NPM below
+-> lando blt refresh:local <sitename> - where is the site you want to build. If you don't specify the site name, you will 	be able to pick the name from a list. For ex-> lando blt refresh:local hmkw
+
+	NOTE:- If anywhere your installation stops just run lando reboot or land restart
+
+6) Take the latest pull by running -> git pull upstream develop
+
+7) -> lando blt local:sync hmkw5 uat download - for installation of any market using the stack number and market just run this command
+
+8) -> lando drush -l https://hmkw.alshaya.lndo.site/ updb for updating the database just paste the url of the site and run
+
+9) -> lando drush -l https://hmkw.alshaya.lndo.site/ cr for clearing the cache 
+
+
+
+
+Drupal Installation done ENJOY!!!!
+Developer -> Ritik Raj
